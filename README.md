@@ -1,4 +1,4 @@
-# isType
+# isEqualType
 check javascript type
 
 use:
