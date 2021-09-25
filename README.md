@@ -1,0 +1,2 @@
+# isType
+check javascript type
