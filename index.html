@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+
+    <script>
+
+const isType = (function () {
+
+'use strict';
+
+var data = {};
+
+var types = 'Array Object String Date RegExp Function Boolean Number Null Undefined'.split(' ');
+
+var type = function () {
+  return Object.prototype.toString.call(this).slice(8, -1);
+};
+
+for (var i = types.length; i--;) {
+  data['is' + types[i]] = (function (self) {
+    return function (elem) {
+      return type.call(elem) === self;
+    };
+  })(types[i]);
+}
+
+// return obj with methods
+return data;
+
+})();
+
+//console.log( isType.isArray([]) == 'Array' )
+
+
+// isEqualType('Array',[])
+const isEqualType = function (type,data) {
+  var fn;
+  var types = {
+    'Array': function () {
+        let t = isType.isArray(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'Object': function () {
+        let t = isType.isObject(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'String': function () {
+        let t = isType.isString(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'Date': function () {
+        let t = isType.isDate(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'RegExp': function () {
+        let t = isType.isRegExp(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'Function': function () {
+        let t = isType.isFunction(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'Boolean': function () {
+        let t = isType.isBoolean(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'Number': function () {
+        let t = isType.isNumber(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'Null': function () {
+        let t = isType.isNull(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'Undefined': function () {
+        let t = isType.isUndefined(data);
+        console.log('t: ',t)
+      return t;
+    },
+    'default': function () {
+      //return 'Error: Wrong data type';
+      throw new Error(`Wrong data type, Or data type  "${type}"  do not exist!`);
+    }
+  };
+  // if the types Object contains the type
+  // passed in, let's use it
+  if (types[type]) {
+    fn = types[type];
+  } else {
+    // otherwise we'll assign the default
+    // also the same as types.default
+    // it's just a little more consistent using square
+    // bracket notation everywhere
+    fn = types['default'];
+  }
+  return fn();
+};
+
+//let test = {}
+
+console.log('isEqualTpe: ', isEqualType('String', 7))
+console.log('isEqualTpe: ', isEqualType('Array', []))
+console.log('isEqualTpe: ', isEqualType('Object', {}))
+console.log('isEqualTpe: ', isEqualType('Number', 1))
+        
+    </script>
+</body>
+</html>
